@@ -51,27 +51,37 @@ app.get('/pokemon-species/:id', async (req, res) => {
 });
 
 app.get('/pokemon', async (req, res) => {
-
     const db = await connectToDatabase();
     const collection = db.collection("Pokemon");
 
     const limit = parseInt(req.query.limit) || 20;
     const offset = parseInt(req.query.offset) || 0;
 
+    const baseUrl = req.protocol + '://' + req.get('host');
+
+    const totalPokemons = await collection.countDocuments();
+    const nextUrl = offset + limit < totalPokemons ? `${baseUrl}/pokemon?offset=${offset + limit}&limit=${limit}` : null;
+    const previousUrl = offset - limit >= 0 ? `${baseUrl}/pokemon?offset=${Math.max(offset - limit, 0)}&limit=${limit}` : null;
+
     let pokemonList = await collection.find({}, { projection: { name: 1, _id: 0 } })
         .skip(offset)
         .limit(limit)
         .toArray();
 
-    const baseUrl = req.protocol + '://' + req.get('host');
-    pokemonList = pokemonList.map((pokemon) => {
-        return {
-            ...pokemon,
-            url: `${baseUrl}/pokemon/${pokemon.name}`,
-        };
-    });
 
-    res.json(pokemonList);
+    const responseObj = {
+        count: totalPokemons,
+        next: nextUrl,
+        previous: previousUrl,
+        results: pokemonList.map((pokemon) => {
+            return {
+                name: pokemon.name,
+                url: `${baseUrl}/pokemon/${pokemon.name}`,
+            };
+        }),
+    };
+
+    res.json(responseObj);
 });
 
 app.listen(port, () => {
