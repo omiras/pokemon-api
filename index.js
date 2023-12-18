@@ -1,6 +1,8 @@
 import express, { json } from 'express';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
 
 dotenv.config();
 
@@ -8,6 +10,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(json());
+app.use(cors());
 
 const uri = process.env.MONGODB_URI;
 
