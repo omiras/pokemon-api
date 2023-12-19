@@ -1,4 +1,5 @@
 import express, { json, Router } from 'express';
+import path from 'path';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -13,6 +14,10 @@ const apiRouter = Router(); // Nuevo enrutador para las rutas API
 
 app.use('/api/v1', apiRouter); // Monta las rutas en el prefijo '/api/v1'
 
+app.get('/', (req, res) => {
+    const absolutePath = path.resolve('./api-doc.html');
+    res.sendFile(path.join(absolutePath));
+})
 
 apiRouter.use(json());
 apiRouter.use(cors());

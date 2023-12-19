@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentación API PokeAda</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://www.fundacionaquae.org/wp-content/uploads/2018/12/Ada-Lovelace.jpg');
+            background-size: cover;
+            opacity: 0.9;
+        }
+
+        ¡
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Documentación de la API PokeAda</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>/api/v1/pokemon/:pokemonName (GET)</h2>
+            </div>
+            <div class="card-body">
+                <p>Obtener información sobre un Pokémon específico por nombre.</p>
+                <pre><code>
+GET /api/v1/pokemon/:pokemonName
+                </code></pre>
+                <p>Ejemplo de invocación:</p>
+                <a href="/api/v1/pokemon/charizard" target="_blank">/api/v1/pokemon/charizard</a>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>/api/v1/pokemon-species/:id (GET)</h2>
+            </div>
+            <div class="card-body">
+                <p>Obtener información sobre una especie de Pokémon específica por ID.</p>
+                <pre><code>
+GET /api/v1/pokemon-species/:id
+                </code></pre>
+                <p>Ejemplo de invocación:</p>
+                <a href="/api/v1/pokemon-species/25" target="_blank">/api/v1/pokemon-species/25</a>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>/api/v1/pokemon (GET)</h2>
+            </div>
+            <div class="card-body">
+                <p>Obtener una lista de Pokémon con parámetros de paginación opcionales.</p>
+                <pre><code>
+GET /api/v1/pokemon
+                </code></pre>
+                <p>Ejemplo de invocación:</p>
+                <a href="/api/v1/pokemon?limit=10&offset=0" target="_blank">/api/v1/pokemon?limit=10&amp;offset=0</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
