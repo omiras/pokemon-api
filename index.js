@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express, { json, Router } from 'express';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -9,8 +9,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(json());
-app.use(cors());
+const apiRouter = Router(); // Nuevo enrutador para las rutas API
+
+app.use('/api/v1', apiRouter); // Monta las rutas en el prefijo '/api/v1'
+
+
+apiRouter.use(json());
+apiRouter.use(cors());
 
 const uri = process.env.MONGODB_URI;
 
@@ -22,7 +27,7 @@ async function connectToDatabase() {
     return client.db("pokemon");
 }
 
-app.get('/pokemon/:pokemonName', async (req, res) => {
+apiRouter.get('/pokemon/:pokemonName', async (req, res) => {
     const db = await connectToDatabase();
     const collection = db.collection("Pokemon");
 
@@ -36,7 +41,7 @@ app.get('/pokemon/:pokemonName', async (req, res) => {
     }
 });
 
-app.get('/pokemon-species/:id', async (req, res) => {
+apiRouter.get('/pokemon-species/:id', async (req, res) => {
     const db = await connectToDatabase();
     const collection = db.collection("Species");
 
@@ -50,7 +55,7 @@ app.get('/pokemon-species/:id', async (req, res) => {
     }
 });
 
-app.get('/pokemon', async (req, res) => {
+apiRouter.get('/pokemon', async (req, res) => {
     const db = await connectToDatabase();
     const collection = db.collection("Pokemon");
 
